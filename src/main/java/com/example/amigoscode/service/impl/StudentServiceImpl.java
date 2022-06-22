@@ -3,12 +3,11 @@ package com.example.amigoscode.service.impl;
 import com.example.amigoscode.model.Student;
 import com.example.amigoscode.repository.StudentRepository;
 import com.example.amigoscode.service.StudentService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -18,6 +17,7 @@ import java.util.Optional;
  * @project amigoscode
  */
 @Service
+@Slf4j
 public class StudentServiceImpl implements StudentService {
 
     private final StudentRepository studentRepository;
@@ -28,7 +28,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     public List<Student> getStudents(){
-        return studentRepository.findAll();
+        List<Student> students = studentRepository.findAll();
+        log.info("****** GETTING STUDENTS FROM DB STUDENTS *******, {}", students);
+        return students;
     }
 
     @Override
