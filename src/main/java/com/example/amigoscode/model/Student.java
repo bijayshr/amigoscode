@@ -20,7 +20,7 @@ public class Student {
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "student_sequence")
-    private Long id;
+    private Integer id;
     private String name;
     private String email;
     private LocalDate dob;
@@ -30,7 +30,7 @@ public class Student {
     public Student() {
     }
 
-    public Student(Long id,
+    public Student(Integer id,
                    String name,
                    String email,
                    LocalDate dob) {
@@ -48,11 +48,11 @@ public class Student {
         this.dob = dob;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

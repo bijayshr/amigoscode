@@ -33,17 +33,26 @@ public class StudentServiceImpl implements StudentService {
         return students;
     }
 
+    public Student getStudentById(Integer id){
+        Optional<Student> student = studentRepository.findById(id);
+        log.info("------- GETTING STUDENT BY ID FROM DB STUDENTS ------, {}", student);
+        if(!student.isPresent()){
+            throw new IllegalStateException("Student ID not found.");
+        }
+        return student.get();
+    }
+
     @Override
-    public void addStudent(Student student) {
+    public Student addStudent(Student student) {
         Optional<Student> studentOptional = studentRepository.findStudentByEmail(student.getEmail());
         if(studentOptional.isPresent()) {
             throw new IllegalStateException("Email taken");
         }
-        studentRepository.save(student);
+       return studentRepository.save(student);
     }
 
     @Override
-    public void deleteStudent(Long studentId) {
+    public void deleteStudent(Integer studentId) {
         boolean exist = studentRepository.existsById(studentId);
         if(!exist){
             throw new IllegalStateException("Student with studentId: " + studentId + " does not exists!");
@@ -53,7 +62,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     @Transactional
-    public void updateStudent(Long id, String name, String email) {
+    public void updateStudent(Integer id, String name, String email) {
         Student student = studentRepository.findById(id).orElseThrow(
                 ()-> new IllegalStateException("Student with ID: " + id + "does not exist!"));
 
